@@ -89,7 +89,7 @@ Future<List<List<List<Event>>>> sortEvents() async {
   return [todayEvents, tomorrowEvents, upcomingEvents];
 }
 
-String url = "http://192.168.43.67:5000";
+String url = "http://10.0.2.2:5000";
 String title = 'IITD Connect';
 String token;
 

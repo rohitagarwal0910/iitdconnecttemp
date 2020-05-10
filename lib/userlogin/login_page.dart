@@ -33,7 +33,6 @@ Future login(BuildContext context, String _email, String _password,
       final response = await http
           .get("$url/api/user/me", headers: {"authorization": "Bearer $token"});
       if (response.statusCode == 200) {
-        print(response.body);
         var parsedJson = json.decode(response.body);
         currentUser = User.fromJson(parsedJson["data"]);
         print("Login successful");

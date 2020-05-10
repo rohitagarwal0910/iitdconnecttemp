@@ -1,4 +1,4 @@
-package com.example.iitd_connect
+package com.devclub.iitd_connect
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

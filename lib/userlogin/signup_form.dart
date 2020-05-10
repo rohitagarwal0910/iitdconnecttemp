@@ -33,7 +33,7 @@ class _SignUpFormState extends State<SignUpForm> {
     print("Signing Up");
     final response = await http.post("$url/api/signup",
         body: {"email": emailId, "name": name, "password": password});
-    print(response.body);
+    // print(response.body);
     print(response.statusCode);
     if (response.body == "Username or Email Is Already In Use") {
       Navigator.pop(context);
@@ -61,6 +61,7 @@ class _SignUpFormState extends State<SignUpForm> {
     } else {
       Navigator.pop(context);
       print("error");
+      print(response.body);
       showErrorAlert(context, "Sign Up Failed",
           "Please check your details and try again.");
     }

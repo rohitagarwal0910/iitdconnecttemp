@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:iitd_connect/globals.dart';
 import 'package:iitd_connect/user_class.dart';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 import 'error_alert.dart';
 import 'home.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -28,6 +30,7 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> with TickerProviderStateMixin {
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   bool signedIn;
   bool start;
 
@@ -68,7 +71,7 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
       final response = await http
           .get("$url/api/user/me", headers: {"authorization": "Bearer $token"});
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         var parsedJson = json.decode(response.body);
         currentUser = User.fromJson(parsedJson["data"]);
       }
@@ -80,6 +83,21 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
     super.initState();
     print("startup");
     start = true;
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) {
+        print("onMessage: $message");
+      },
+      onResume: (Map<String, dynamic> message) {
+        print("onResume: $message");
+      },
+      onLaunch: (Map<String, dynamic> message) {
+        print("onLaunch: $message");
+      },
+    );
+
+    _firebaseMessaging.getToken().then((token) {
+      print("fcm token: $token");
+    });
   }
 
   @override
